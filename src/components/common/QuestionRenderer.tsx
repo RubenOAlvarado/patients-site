@@ -189,6 +189,8 @@ const QuestionRenderer: React.FC<QuestionRendererProps> = ({
       className="bg-white shadow-md rounded-xl p-6 mb-6 border border-gray-100"
     >
 
+      <h3 className="text-xl font-medium text-gray-800 mb-4">{question.questionText}</h3>
+
       <div className="mb-4">{renderInputField()}</div>
 
       {error && (
