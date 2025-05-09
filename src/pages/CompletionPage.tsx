@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useQuestionnaire } from "../context/useQuestionnaire";
 import { useEffect } from "react";
-import QuestionnaireComplete from "../components/QuestionnaireComplete";
+import QuestionnaireComplete from "../components/common/QuestionnaireComplete";
 
 const CompletionPage: React.FC = () => {
   const { isCompleted, patient } = useQuestionnaire();
@@ -9,7 +9,7 @@ const CompletionPage: React.FC = () => {
 
   useEffect(() => {
     if (!isCompleted || !patient) {
-      navigate('/');
+      navigate("/");
     }
   }, [isCompleted, patient, navigate]);
 
@@ -18,7 +18,7 @@ const CompletionPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-16 px-4">
       <QuestionnaireComplete />
     </div>
   );
