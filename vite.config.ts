@@ -4,15 +4,5 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/patients/',
-  server: {
-    port: 3001,
-  },
-  build: {
-    outDir: './dist/patients',
-    assetsDir: 'assets',
-    emptyOutDir: true,
-    sourcemap: true,
-  },
   plugins: [react(), tailwindcss()],
 })
