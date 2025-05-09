@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Language, LanguagesListProps } from "../types";
-import { fetchLanguages } from "../services/api";
+import { Language, LanguagesListProps } from "../../types";
+import { fetchLanguages } from "../../services/api";
+import { motion } from 'framer-motion';
 
-const LanguagesList = ({ 
-  onLanguageSelect, 
-  selectedLanguageCode = '', 
-  label = 'Language', 
-  className = '' 
-}: LanguagesListProps) => {
+const LanguagesList: React.FC<LanguagesListProps> = ({
+  onLanguageSelect,
+  selectedLanguageCode = "",
+  label = "Language",
+  className = "",
+}) => {
   const [languages, setLanguages] = useState<Language[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,8 +21,8 @@ const LanguagesList = ({
         setLanguages(data);
         setError(null);
       } catch (err) {
-        setError('Error al cargar los idiomas');
-        console.error('Error fetching languages:', err);
+        setError("Error loading languages");
+        console.error("Error fetching languages:", err);
       } finally {
         setLoading(false);
       }
@@ -40,23 +41,35 @@ const LanguagesList = ({
         {label}
       </label>
       {loading ? (
-        <div className="animate-pulse h-10 bg-gray-200 rounded"></div>
+        <motion.div
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          className="animate-pulse h-10 bg-gray-200 rounded"
+        ></motion.div>
       ) : error ? (
-        <div className="text-red-500 text-sm">{error}</div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-red-500 text-sm"
+        >
+          {error}
+        </motion.div>
       ) : (
-        <select
+        <motion.select
           id="language-select"
           value={selectedLanguageCode}
           onChange={handleChange}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           className="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         >
           <option value="">Select language</option>
-          {languages.map((language) => (
-            <option key={language.code} value={language.code}>
-              {language.name}
+          {languages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.name}
             </option>
           ))}
-        </select>
+        </motion.select>
       )}
     </div>
   );
